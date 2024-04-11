@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>LocalStorages</h1>
+    <input type="text" class="Name" />
+    <input type="number" class="Age" />
+
+    <h2>My Name is <span class="name"></span></h2>
+    <h2>My Age is <span class="age"></span></h2>
+
+    <button onclick="ClearData()">Clear Data</button>
+    <button onclick="CleanLocalStorage()">Clean localStorage</button>
+
+    <script>
+      const name = document.querySelector(".name");
+      const age = document.querySelector(".age");
+
+      const Name = document.querySelector(".Name");
+      const Age = document.querySelector(".Age");
+
+      const myData = JSON.parse(localStorage.getItem("myData")) || {};
+      name.innerText = myData.name || "_____";
+      age.innerText = myData.age || "_____";
+      Name.value = myData.name || "";
+      Age.value = myData.age || "";
+
+      Name.addEventListener("keyup", (e) => {
+        myData.name = e.target.value;
+        localStorage.setItem("myData", JSON.stringify(myData));
+        name.innerText = myData.name;
+      });
+
+      Age.addEventListener("keyup", (e) => {
+        myData.age = e.target.value;
+        localStorage.setItem("myData", JSON.stringify(myData));
+        age.innerText = myData.age;
+      });
+
+      function ClearData() {
+        localStorage.removeItem("myData");
+        clear();
+      }
+      function CleanLocalStorage() {
+        localStorage.clear();
+        clear();
+      }
+
+      function clear() {
+        name.innerText = "_____";
+        age.innerText = "_____";
+        Name.value = "";
+        Age.value = "";
+      }
+    </script>
+  </body>
+</html>
